@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">IIT-GLID-II-FirstApp</string>
+    <string name="hello_world">Hello world</string>
+    <string name="home_button_label">Tap Me</string>
+</resources>
