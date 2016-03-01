@@ -1,15 +1,14 @@
 package com.iit.glidapp;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class Activity2 extends AppCompatActivity implements View.OnClickListener {
 
 
     private  Button mButton;
@@ -19,40 +18,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.v("iit","onCreate called");
+        Log.v("iit", "onCreate called");
         setContentView(R.layout.activity_main);
         mButton = (Button) findViewById(R.id.button);
         mButton.setOnClickListener(this);
 
         mTopText= (TextView) findViewById(R.id.top_text);
-        mTopText.setOnClickListener(this);
+
     }
 
     protected void onStart(){
         super.onStart();
-        Log.v("iit", "onStart called");
+        Log.v("iit", "Activity2 onStart called");
     }
 
 
 
     protected void onResume(){
         super.onResume();
-        Log.v("iit", "onResume called");
+        Log.v("iit", "Activity2 onResume called");
     }
 
     protected void onPause(){
         super.onPause();
-        Log.v("iit", "onPause called");
+        Log.v("iit", "Activity2 onPause called");
     }
 
     protected void onStop(){
         super.onStop();
-        Log.v("iit", "onStop called");
+        Log.v("iit", "Activity2 onStop called");
     }
 
     protected void onDestroy(){
         super.onDestroy();
-        Log.v("iit", "onDestroy called");
+        Log.v("iit", "Activity2 onDestroy called");
     }
 
 
@@ -64,24 +63,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonClicked();
                 break;
             case R.id.top_text:
-                topTextClicked();
+
                 break;
         }
     }
 
     private void buttonClicked() {
         Toast.makeText(this, "buttonclicked", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getApplicationContext(), Activity2.class);
-        startActivity(intent);
     }
 
-    private void topTextClicked() {
-        Toast.makeText(this, "toptextClicked", Toast.LENGTH_LONG).show();
-    }
 
-//    public void clickButtonFromXml(View v){
-//        Toast.makeText(this, "buttonclicked from xml", Toast.LENGTH_LONG).show();
-//    }
+
+
 
 
 

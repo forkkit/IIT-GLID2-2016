@@ -24,7 +24,6 @@
         android:layout_above="@+id/below_text"
         android:layout_below="@id/top_text"
         android:background="@android:color/holo_red_dark"
-        android:onClick="clickButtonFromXml"
         android:text="@string/home_button_label" />
 
     <TextView
