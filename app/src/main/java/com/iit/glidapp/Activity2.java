@@ -8,74 +8,52 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Activity2 extends AppCompatActivity implements View.OnClickListener {
+public class Activity2 extends AppCompatActivity {
 
-
-    private  Button mButton;
-    private TextView mTopText;
+    private TextView mInfoText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.v("iit", "onCreate called");
-        setContentView(R.layout.activity_main);
-        mButton = (Button) findViewById(R.id.button);
-        mButton.setOnClickListener(this);
-
-        mTopText= (TextView) findViewById(R.id.top_text);
-
+        Log.v("iit", "Activity2 onCreate called");
+        setContentView(R.layout.activity_2_layout);
+        mInfoText = (TextView) findViewById(R.id.info_text);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            //String textFromMain = getIntent().getStringExtra(MainActivity.INFO_KEY);
+            String textFromMain = bundle.getString(MainActivity.INFO_KEY);
+            if (textFromMain != null) {
+                mInfoText.setText(textFromMain);
+            }
+        }
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         Log.v("iit", "Activity2 onStart called");
     }
 
 
-
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         Log.v("iit", "Activity2 onResume called");
     }
 
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         Log.v("iit", "Activity2 onPause called");
     }
 
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         Log.v("iit", "Activity2 onStop called");
     }
 
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         Log.v("iit", "Activity2 onDestroy called");
     }
-
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button:
-                buttonClicked();
-                break;
-            case R.id.top_text:
-
-                break;
-        }
-    }
-
-    private void buttonClicked() {
-        Toast.makeText(this, "buttonclicked", Toast.LENGTH_LONG).show();
-    }
-
-
-
-
-
 
 
 }
