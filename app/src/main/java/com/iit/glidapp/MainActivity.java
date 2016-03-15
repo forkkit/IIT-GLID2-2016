@@ -2,6 +2,7 @@ package com.iit.glidapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonClicked();
                 break;
             case R.id.below_text:
-                belowTextClicked();
+                belowTextClicked3();
                 break;
         }
     }
@@ -105,6 +106,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             mTopText.setVisibility(View.GONE);
         }
+    }
+
+    private void belowTextClicked3() {
+        //Uri webpage = Uri.parse("http://www.iit-nau.com/");
+        //Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        //startActivity(webIntent);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+
+    }
+
+    private void launchActivity3() {
+
+        Intent launchActivity3Intent = new Intent("android.iit.test.activity3");
+
+        startActivity(launchActivity3Intent);
+
     }
 
 }
