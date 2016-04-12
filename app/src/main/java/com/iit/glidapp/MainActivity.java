@@ -1,11 +1,14 @@
 package com.iit.glidapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String INFO_KEY = "info";
+    public static final int MAIN_ACTIVITY_REQUEST_CODE = 1000;
 
     private RelativeLayout mMainLayout;
     private Button mButton;
@@ -66,6 +70,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_add:
+                Log.v("iit","add action item selected");
+                break;
+            case R.id.action_view:
+                Intent intent = new Intent(getApplicationContext(),EnhancedActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
@@ -84,7 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bundle bundle = new Bundle();
         bundle.putString(INFO_KEY, mTopText.getText().toString());
         intent.putExtras(bundle);
-        startActivity(intent);
+//        startActivity(intent);
+        startActivityForResult(intent,MAIN_ACTIVITY_REQUEST_CODE);
     }
 
     private void belowTextClicked() {
@@ -128,4 +156,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode){
+            case MAIN_ACTIVITY_REQUEST_CODE:
+                if(resultCode == Activity.RESULT_OK){
+                    Log.v("iit","text contains i");
+                }else{
+                    Log.v("iit","text doesn't contain i");
+                }
+                break;
+        }
+    }
 }

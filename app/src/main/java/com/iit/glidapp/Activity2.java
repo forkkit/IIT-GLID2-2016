@@ -1,5 +1,6 @@
 package com.iit.glidapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Activity2 extends AppCompatActivity {
+public class Activity2 extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mInfoText;
 
@@ -27,6 +28,8 @@ public class Activity2 extends AppCompatActivity {
                 mInfoText.setText(textFromMain);
             }
         }
+
+        mInfoText.setOnClickListener(this);
     }
 
     protected void onStart() {
@@ -56,4 +59,13 @@ public class Activity2 extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if(mInfoText.getText().toString().contains("i")) {
+            setResult(Activity.RESULT_OK);
+        }else{
+            setResult(Activity.RESULT_CANCELED);
+        }
+        finish();
+    }
 }

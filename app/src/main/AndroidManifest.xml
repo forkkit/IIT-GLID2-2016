@@ -16,17 +16,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activity2"
+            android:label="@string/activity_2_title" />
+        <activity
             android:name=".Activity3"
             android:label="@string/activity_3_title">
+            <intent-filter>
+                <action android:name="android.iit.test.activity3" />
+                <action android:name="android.intent.action.SEND" />
 
-        <intent-filter>
-            <action android:name="android.iit.test.activity3" />
-            <action android:name="android.intent.action.SEND" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <data android:mimeType="text/plain"/>
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
         </activity>
-
+        <activity
+            android:name=".EnhancedActivity"
+            android:label="@string/title_activity_enhanced"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
