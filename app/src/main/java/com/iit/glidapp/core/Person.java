@@ -1,15 +1,17 @@
 package com.iit.glidapp.core;
 
+import java.io.Serializable;
+
 /**
  * Created by slim on 19/04/16.
  */
-public class Person {
+public class Person implements Serializable {
     private String mName;
     private int mAge;
 
-    public Person(String name,int age){
+    public Person(String name, int age) {
         mName = name;
-        mAge=age;
+        mAge = age;
     }
 
     public String getName() {

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class EnhancedActivity extends AppCompatActivity implements AddFragment.AddPersonListener, View.OnClickListener {
 
+    private static final String PERSONS_LIST_KEY = "persons_list_key";
+
     private FloatingActionButton mFab;
     private ArrayList<Person> mPersonsList;
 
@@ -24,15 +26,20 @@ public class EnhancedActivity extends AppCompatActivity implements AddFragment.A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enhanced);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, new ListingFragment()).commit();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(this);
 
-        mPersonsList = new ArrayList<>();
+        if (savedInstanceState == null) {
+            mPersonsList = new ArrayList<>();
+        } else {
+            mPersonsList = (ArrayList<Person>) savedInstanceState.getSerializable(PERSONS_LIST_KEY);
+        }
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, ListingFragment.newInstance(mPersonsList)).commit();
     }
 
     @Override
@@ -51,17 +58,22 @@ public class EnhancedActivity extends AppCompatActivity implements AddFragment.A
         }
     }
 
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(PERSONS_LIST_KEY, mPersonsList);
+
+    }
+
     private void launchAdd() {
         getSupportFragmentManager().beginTransaction().replace(R.id.content, AddFragment.newInstance(this)).commit();
     }
 
     private void performPersonAdd(String name, int age) {
 //TODO do something
-        Person person = new Person(name,age);
+        Person person = new Person(name, age);
         mPersonsList.add(person);
 
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, new ListingFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, ListingFragment.newInstance(mPersonsList)).commit();
         mFab.setVisibility(View.VISIBLE);
     }
 }

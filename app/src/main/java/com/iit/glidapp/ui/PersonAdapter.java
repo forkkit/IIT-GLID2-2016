@@ -20,14 +20,14 @@ import java.util.Calendar;
  */
 public class PersonAdapter extends BaseAdapter {
 
-    private Context mContext;
+//    private Context mContext;
     private ArrayList<Person> mPersonsList;
     private LayoutInflater mInflater;
 
     public PersonAdapter(Context context, ArrayList<Person> personsList) {
         mPersonsList = personsList;
-        mContext = context;
-        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        mContext = context;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
@@ -54,12 +54,14 @@ public class PersonAdapter extends BaseAdapter {
         long timestamp = Calendar.getInstance().getTimeInMillis();
         ItemViewHolder itemViewHolder;
         if (convertView == null) {
+            Log.v("iit", "getView: convert view = null:"+position);
             convertView = mInflater.inflate(R.layout.list_item, null);
             itemViewHolder = new ItemViewHolder();
             itemViewHolder.mName = (TextView) convertView.findViewById(R.id.item_name);
             itemViewHolder.mAge = (TextView) convertView.findViewById(R.id.item_age);
             convertView.setTag(itemViewHolder);
         } else {
+            Log.v("iit", "getView: convert view != null:"+position);
             itemViewHolder = (ItemViewHolder) convertView.getTag();
         }
         Person person = mPersonsList.get(position);

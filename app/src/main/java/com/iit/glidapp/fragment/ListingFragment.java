@@ -18,37 +18,40 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ListingFragment extends Fragment{
+public class ListingFragment extends Fragment {
 
     private ListView mListView;
 
-    PersonAdapter mPersonAdapter;
-    private ArrayList<Person> mPersonsList;
+    private PersonAdapter mPersonAdapter;
+    private static ArrayList<Person> mPersonsList;
 
     public ListingFragment() {
-        mPersonsList = new ArrayList<>();
 
+    }
+
+    public static ListingFragment newInstance(ArrayList<Person> personsList){
+
+        ListingFragment listingFragment = new ListingFragment();
+        mPersonsList = personsList;
+        return listingFragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_listing, container,false);
-         mListView = (ListView) view.findViewById(R.id.list_view);
+        View view = inflater.inflate(R.layout.fragment_listing, container, false);
+        mListView = (ListView) view.findViewById(R.id.list_view);
 
 
-
-
-
-        mPersonAdapter = new PersonAdapter(getActivity().getApplicationContext(),mPersonsList);
+        mPersonAdapter = new PersonAdapter(getActivity().getApplicationContext(), mPersonsList);
         mListView.setAdapter(mPersonAdapter);
-        fillAdapter();
+        //fillAdapter();
         return view;
     }
 
-    private void fillAdapter(){
-        for (int i = 0; i<1000; i++){
-            mPersonsList.add(new Person("item "+i,i));
+    private void fillAdapter() {
+        for (int i = 0; i < 1000; i++) {
+            mPersonsList.add(new Person("item " + i, i));
         }
 
         mPersonAdapter.notifyDataSetChanged();
