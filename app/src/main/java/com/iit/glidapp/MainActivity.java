@@ -1,9 +1,11 @@
 package com.iit.glidapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,16 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.iit.glidapp.core.Person;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -79,12 +91,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_add:
-                Log.v("iit","add action item selected");
+                //createFile();
+                //createFileInThread();
+                createFileInThreadWithJson();
                 break;
             case R.id.action_view:
-                Intent intent = new Intent(getApplicationContext(),EnhancedActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EnhancedActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -112,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putString(INFO_KEY, mTopText.getText().toString());
         intent.putExtras(bundle);
 //        startActivity(intent);
-        startActivityForResult(intent,MAIN_ACTIVITY_REQUEST_CODE);
+        startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_CODE);
     }
 
     private void belowTextClicked() {
@@ -159,14 +173,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
+        switch (requestCode) {
             case MAIN_ACTIVITY_REQUEST_CODE:
-                if(resultCode == Activity.RESULT_OK){
-                    Log.v("iit","text contains i");
-                }else{
-                    Log.v("iit","text doesn't contain i");
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.v("iit", "text contains i");
+                } else {
+                    Log.v("iit", "text doesn't contain i");
                 }
                 break;
+        }
+    }
+
+    private void createFileInThread() {
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                createFile(mTopText.getText().toString());
+                //we can't touch views outside of UI thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTopText.setText("");
+                    }
+                });
+            }
+        };
+
+        thread.start();
+    }
+
+    private void createFileInThreadWithJson() {
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                Person person = new Person("test", 20);
+                Gson gson = new Gson();
+                String s = gson.toJson(person);
+                createFile(s);
+                //we can't touch views outside of UI thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTopText.setText("");
+                    }
+                });
+            }
+        };
+
+        thread.start();
+    }
+
+    private void createFile(String text) {
+
+        if (!text.isEmpty()) {
+            try {
+                String filePath = getApplicationContext().getFilesDir().getAbsolutePath() + File.separator + "file" + Calendar.getInstance().getTimeInMillis();
+                File file = new File(filePath);
+                PrintWriter out = new PrintWriter(file);
+                out.println(text);
+                out.close();
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

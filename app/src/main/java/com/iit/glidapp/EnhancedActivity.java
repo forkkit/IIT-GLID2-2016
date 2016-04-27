@@ -47,6 +47,10 @@ public class EnhancedActivity extends AppCompatActivity implements AddFragment.A
         performPersonAdd(name, age);
     }
 
+    public void onCancelAddPerson(){
+        mFab.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -64,7 +68,10 @@ public class EnhancedActivity extends AppCompatActivity implements AddFragment.A
     }
 
     private void launchAdd() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, AddFragment.newInstance(this)).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.content, AddFragment.newInstance(this)).commit();
+        AddFragment addFragment = AddFragment.newInstance(this);
+        addFragment.setCancelable(false);
+        addFragment.show(getSupportFragmentManager(),"");
     }
 
     private void performPersonAdd(String name, int age) {

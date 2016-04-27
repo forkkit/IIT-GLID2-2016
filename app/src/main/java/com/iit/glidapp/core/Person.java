@@ -6,8 +6,14 @@ import java.io.Serializable;
  * Created by slim on 19/04/16.
  */
 public class Person implements Serializable {
+
     private String mName;
     private int mAge;
+
+
+    public Person() {
+
+    }
 
     public Person(String name, int age) {
         mName = name;

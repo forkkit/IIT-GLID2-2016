@@ -7,4 +7,6 @@
     <string name="title_activity_enhanced">EnhancedActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="add_fragment_title">Add new person</string>
+
 </resources>
